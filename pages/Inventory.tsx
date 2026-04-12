@@ -212,7 +212,6 @@ export const Inventory: React.FC = () => {
           <div class="row"><span class="label">Net Weight:</span> <span class="value">${item.net_weight?.toFixed(3)}g</span></div>
           <div class="row"><span class="label">Quantity:</span> <span class="value">${item.quantity || 1}</span></div>
           <div class="row"><span class="label">Location:</span> <span class="value">${item.location || '-'}</span></div>
-          <div class="footer">Luxury Redefined • Est 2024</div>
         </body>
       </html>
     `;

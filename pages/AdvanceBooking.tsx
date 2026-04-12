@@ -131,6 +131,20 @@ export const AdvanceBooking: React.FC = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  // --- AUTOMATIC PRINT TRIGGER ---
+  useEffect(() => {
+    if (selectedBookingForPrint) {
+      // Delay slightly to ensure React has updated the DOM for the print and the print-media styles are ready
+      const timer = setTimeout(() => {
+        window.print();
+        // Option: we could auto-close the preview after printing if desired, 
+        // but keeping it open allows the user to re-print manually if needed.
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [selectedBookingForPrint]);
+
   // --- DERIVED VALUES ---
   const itemsTotal = useMemo(() => items.reduce((sum, item) => sum + (item.lineTotal || 0), 0), [items]);
   const oldGoldValue = useMemo(() => (oldGold.weight || 0) * (oldGold.rate || 0), [oldGold.weight, oldGold.rate]);
@@ -855,7 +869,7 @@ export const AdvanceBooking: React.FC = () => {
       {/* 5. PRINT COMPONENTS (STRICTLY FOR PRINTER) */}
       <div className="hidden print:block print-block">
         {selectedBookingForPrint && (
-          <AdvanceBookingPrint saleType={selectedBookingForPrint.bills?.sale_type} bookingNo={selectedBookingForPrint.bills?.bill_no || '-'} bookingDate={selectedBookingForPrint.booking_date} deliveryDate={selectedBookingForPrint.delivery_date} customerName={selectedBookingForPrint.bills?.customers?.name || 'Unknown'} customerPhone={selectedBookingForPrint.bills?.customers?.phone || '-'} items={selectedBookingForPrint.structuredItems || []} itemDescription={selectedBookingForPrint.item_description} totalAmount={selectedBookingForPrint.total_amount} advanceAmount={selectedBookingForPrint.advance_amount} balanceDue={selectedBookingForPrint.total_amount - selectedBookingForPrint.advance_amount} notes={selectedBookingForPrint.customer_notes} />
+          <AdvanceBookingPrint saleType={selectedBookingForPrint.bills?.sale_type} bookingNo={selectedBookingForPrint.bills?.bill_no || '-'} bookingDate={selectedBookingForPrint.booking_date} deliveryDate={selectedBookingForPrint.delivery_date} customerName={selectedBookingForPrint.bills?.customers?.name || 'Unknown'} customerPhone={selectedBookingForPrint.bills?.customers?.phone || '-'} items={selectedBookingForPrint.structuredItems || []} itemDescription={selectedBookingForPrint.item_description} totalAmount={selectedBookingForPrint.total_amount} advanceAmount={selectedBookingForPrint.advance_amount} balanceDue={selectedBookingForPrint.total_amount - selectedBookingForPrint.advance_amount} notes={selectedBookingForPrint.customer_notes} oldGold={oldGold} />
         )}
       </div>
       {/* 6. ON-SCREEN PREVIEW MODAL */}
@@ -877,7 +891,7 @@ export const AdvanceBooking: React.FC = () => {
               </div>
               <div className="flex-1 overflow-auto bg-gray-200 p-8 custom-scrollbar">
                 <div className="scale-90 origin-top">
-                    <AdvanceBookingPrint isScreenPreview saleType={selectedBookingForPrint.bills?.sale_type} bookingNo={selectedBookingForPrint.bills?.bill_no || '-'} bookingDate={selectedBookingForPrint.booking_date} deliveryDate={selectedBookingForPrint.delivery_date} customerName={selectedBookingForPrint.bills?.customers?.name || 'Unknown'} customerPhone={selectedBookingForPrint.bills?.customers?.phone || '-'} items={selectedBookingForPrint.structuredItems || []} itemDescription={selectedBookingForPrint.item_description} totalAmount={selectedBookingForPrint.total_amount} advanceAmount={selectedBookingForPrint.advance_amount} balanceDue={selectedBookingForPrint.total_amount - selectedBookingForPrint.advance_amount} notes={selectedBookingForPrint.customer_notes} />
+                    <AdvanceBookingPrint isScreenPreview saleType={selectedBookingForPrint.bills?.sale_type} bookingNo={selectedBookingForPrint.bills?.bill_no || '-'} bookingDate={selectedBookingForPrint.booking_date} deliveryDate={selectedBookingForPrint.delivery_date} customerName={selectedBookingForPrint.bills?.customers?.name || 'Unknown'} customerPhone={selectedBookingForPrint.bills?.customers?.phone || '-'} items={selectedBookingForPrint.structuredItems || []} itemDescription={selectedBookingForPrint.item_description} totalAmount={selectedBookingForPrint.total_amount} advanceAmount={selectedBookingForPrint.advance_amount} balanceDue={selectedBookingForPrint.total_amount - selectedBookingForPrint.advance_amount} notes={selectedBookingForPrint.customer_notes} oldGold={oldGold} />
                 </div>
               </div>
            </div>

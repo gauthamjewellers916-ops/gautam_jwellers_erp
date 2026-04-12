@@ -46,30 +46,21 @@ export const LayawayStatementPrint: React.FC<LayawayStatementPrintProps> = ({
       <style>{`
         @media print {
           @page { margin: 0; size: A5 portrait; }
-          body { margin: 0; padding: 0; -webkit-print-color-adjust: exact; font-weight: 500 !important; }
+          body { margin: 0; padding: 0; -webkit-print-color-adjust: exact; font-weight: 500 !important; overflow: hidden !important; }
           .no-print { display: none !important; }
-          * { font-size: 8pt; color: #1a1a1a !important; }
-          h1 { font-size: 24pt !important; color: #c5a059 !important; }
-          .text-xs { font-size: 7.5pt !important; color: #1a1a1a !important; }
-          .text-[10px] { font-size: 6.5pt !important; color: #1a1a1a !important; }
-          .luxury-gold { color: #c5a059 !important; }
+          * { font-size: 7.5pt; color: #1a1a1a !important; }
+          h1 { font-size: 18pt !important; color: #c5a059 !important; line-height: 1 !important; margin-bottom: 1.5mm !important; }
+          .text-xs { font-size: 6.5pt !important; color: #1a1a1a !important; }
+          .text-[10px] { font-size: 6pt !important; color: #1a1a1a !important; }
+          .luxury-gold { color: #c09a50 !important; }
         }
 
-        .shop-name {
-          font-family: 'serif';
-          font-size: 42pt;
-          letter-spacing: 0.05em;
-          line-height: 1;
-          margin-bottom: 2mm;
-          color: #c5a059;
-          font-weight: 900;
-          text-transform: uppercase;
-        }
         .luxury-serif { font-family: 'serif'; font-weight: 900; }
         .luxury-gold { color: #c5a059; }
-        .statement-table th { border-bottom: 2px solid #1a1a1a; padding: 8px 4px; text-transform: uppercase; font-size: 8pt; letter-spacing: 1px; }
-        .statement-table td { padding: 12px 4px; border-bottom: 1px solid #f0f0f0; font-size: 10pt; }
-        .footer-label { font-size: 8pt; font-weight: 800; letter-spacing: 1px; color: #666; margin-bottom: 4px; display: block; }
+        .statement-table th { border: 2px solid #1a1a1a; padding: 6px; text-transform: uppercase; font-size: 7.5pt; letter-spacing: 0.5px; background: #f9f9f9; }
+        .statement-table td { padding: 8px 6px; border: 2px solid #1a1a1a; font-size: 9pt; font-weight: 800; }
+        .summary-box { border: 2px solid #1a1a1a; padding: 10px; border-radius: 2px; text-align: center; }
+        .footer-label { font-size: 7pt; font-weight: 900; letter-spacing: 0.5px; color: #1a1a1a; text-transform: uppercase; margin-bottom: 2px; display: block; opacity: 0.6; }
       `}</style>
 
       {/* TOP LOGO ACCENT */}
@@ -80,17 +71,17 @@ export const LayawayStatementPrint: React.FC<LayawayStatementPrintProps> = ({
       </div>
 
       {/* BRANDING SECTION */}
-      <div className="text-center mb-6">
-        <h1 className="luxury-serif text-[24pt] luxury-gold tracking-[0.05em] uppercase leading-none mb-2">GAUTAM JEWELLERS</h1>
+      <div className="text-center mb-2">
+        <h1 className="luxury-serif text-[18pt] luxury-gold tracking-[0.05em] uppercase leading-none mb-0.5">GAUTAM JEWELLERS</h1>
         
-        <div className="space-y-1 text-charcoal-900 font-bold">
-          <p className="text-[11pt] uppercase tracking-tight">
+        <div className="space-y-0 text-charcoal-900 font-bold">
+          <p className="text-[8.5pt] uppercase tracking-tight">
             # 27/134, Tannery Road, Near Periyarnagar Circle, Bangalore - 560 005
           </p>
-          <p className="text-[12pt]">
+          <p className="text-[9.5pt]">
             Ph: 080-25465873, 9740415457
           </p>
-          <p className="text-[11pt]">
+          <p className="text-[8.5pt]">
             <span className="border-b-2 border-charcoal-900 pb-0.5">GSTIN: 29AATPU7315B1ZA</span>
           </p>
         </div>
@@ -102,33 +93,34 @@ export const LayawayStatementPrint: React.FC<LayawayStatementPrintProps> = ({
          </div>
       </div>
 
-      {/* STATEMENT HEADER */}
-      <div className="flex justify-between items-baseline border-b border-gray-100 pb-2 mb-4">
-        <h2 className="luxury-serif italic text-xl uppercase tracking-widest luxury-dark opacity-60">Layaway Statement</h2>
-        <div className="flex gap-12 font-mono text-[10px] font-bold">
-          <div className="flex flex-col items-end">
-            <span className="text-[8px] text-gray-400 uppercase tracking-widest leading-none mb-1">Bill No</span>
-            <span className="text-sm">{billNo}</span>
-          </div>
-          <div className="flex flex-col items-end">
-            <span className="text-[8px] text-gray-400 uppercase tracking-widest leading-none mb-1">Date</span>
-            <span className="text-sm">{formatDate(new Date().toISOString())}</span>
-          </div>
+      {/* STATEMENT HEADER BOX */}
+      <div className="flex justify-between items-center border-2 border-charcoal-900 px-3 py-1 mb-2 rounded-sm bg-white shadow-sm">
+        <h2 className="luxury-serif italic text-sm uppercase tracking-widest text-charcoal-900 leading-none">Layaway Statement</h2>
+        <div className="flex gap-4 font-mono text-[8px] font-bold uppercase items-center">
+            <div className="flex flex-col items-end">
+                <span className="text-[6.5px] text-charcoal-400 uppercase tracking-widest leading-none mb-0.5 opacity-60">Bill No</span>
+                <span className="text-[10pt] text-charcoal-900 font-mono font-black">{billNo}</span>
+            </div>
+            <div className="w-px h-6 bg-charcoal-200 mx-1"></div>
+            <div className="flex flex-col items-end">
+                <span className="text-[6.5px] text-charcoal-400 uppercase tracking-widest leading-none mb-0.5 opacity-60">Date</span>
+                <span className="text-[10pt] text-charcoal-900 font-mono font-black">{formatDate(new Date().toISOString())}</span>
+            </div>
         </div>
       </div>
 
       {/* VALUED CLIENT SECTION */}
-      <div className="grid grid-cols-2 gap-8 mb-8">
-        <div className="border-l-2 border-gray-300 pl-4 py-1">
-          <span className="footer-label uppercase">Valued Client</span>
-          <p className="font-bold text-lg uppercase tracking-tight">{customerName}</p>
-          <p className="text-xs font-mono text-gray-500 mt-1">{customerPhone}</p>
+      <div className="grid grid-cols-2 gap-4 mb-3 border-2 border-charcoal-900 p-2 rounded-sm">
+        <div className="border-l-4 border-charcoal-900 pl-4 py-0.5">
+          <span className="text-[7pt] font-black text-charcoal-400 uppercase tracking-widest mb-0.5 italic leading-none block">Valued Client</span>
+          <p className="font-bold text-lg uppercase tracking-tight text-charcoal-900 leading-none mt-1">{customerName}</p>
+          <p className="text-[10.5pt] font-mono text-charcoal-900 font-black mt-1">{customerPhone}</p>
         </div>
         
-        <div className="flex flex-col items-end justify-center">
+        <div className="flex flex-col items-end justify-center pr-2 border-l border-charcoal-100">
             <div className="text-right">
-              <span className="footer-label uppercase opacity-40">Account Status</span>
-              <span className={`text-sm font-bold uppercase tracking-widest ${balance <= 0 ? 'text-green-600' : 'text-red-500'}`}>
+              <span className="footer-label opacity-40">Account Status</span>
+              <span className={`text-sm font-black uppercase tracking-widest px-2 py-0.5 border-2 ${balance <= 0 ? 'text-green-700 border-green-700' : 'text-red-700 border-red-700'}`}>
                 {balance <= 0 ? 'SETTLED' : 'PAYMENT PENDING'}
               </span>
             </div>
@@ -136,18 +128,18 @@ export const LayawayStatementPrint: React.FC<LayawayStatementPrintProps> = ({
       </div>
 
       {/* FINANCIAL OVERVIEW */}
-      <div className="grid grid-cols-3 gap-6 mb-8 text-center bg-gray-50 p-6 rounded-sm border border-gray-100">
-        <div>
-          <span className="footer-label uppercase opacity-60">Total Value</span>
-          <p className="text-xl font-bold font-mono tracking-tight">{formatCurrency(totalAmount)}</p>
+      <div className="grid grid-cols-3 gap-3 mb-4 text-center">
+        <div className="summary-box">
+          <span className="footer-label">Total Outstanding</span>
+          <p className="text-xl font-mono font-black border-t border-charcoal-100 mt-1 pt-1">{formatCurrency(totalAmount)}</p>
         </div>
-        <div className="border-x border-gray-200">
-          <span className="footer-label uppercase opacity-60">Total Paid</span>
-          <p className="text-xl font-bold font-mono tracking-tight text-green-600">{formatCurrency(paidAmount)}</p>
+        <div className="summary-box bg-green-50/10">
+          <span className="footer-label text-green-700 opacity-100">Amount Paid</span>
+          <p className="text-xl font-mono font-black text-green-700 border-t border-charcoal-100 mt-1 pt-1">{formatCurrency(paidAmount)}</p>
         </div>
-        <div>
-          <span className="footer-label uppercase opacity-60">Balance Due</span>
-          <p className={`text-xl font-bold font-mono tracking-tight ${balance > 0 ? 'text-red-600' : 'text-gray-400'}`}>{formatCurrency(balance)}</p>
+        <div className="summary-box bg-red-50/10">
+          <span className="footer-label text-red-700 opacity-100">Balance Due</span>
+          <p className={`text-xl font-mono font-black text-red-700 border-t border-charcoal-100 mt-1 pt-1`}>{formatCurrency(balance)}</p>
         </div>
       </div>
 
@@ -185,39 +177,33 @@ export const LayawayStatementPrint: React.FC<LayawayStatementPrintProps> = ({
       </div>
 
       {/* FOOTER: TERMS & PROTOCOL */}
-      <div className="mt-auto border-t border-gray-200 pt-8 pb-4">
-          <div className="grid grid-cols-[1.5fr,1fr] gap-12 mb-8">
-             <div className="space-y-4">
+      <div className="mt-auto border-t border-gray-200 pt-2 pb-2">
+          <div className="grid grid-cols-[1.5fr,1fr] gap-8 mb-4">
+             <div className="space-y-1">
                 <span className="footer-label uppercase opacity-20">Statement Note</span>
-                <div className="text-[8.5px] font-bold text-gray-400 leading-relaxed italic space-y-1.5">
-                  <p>• This is an official statement of account for your installment purchase.</p>
-                  <p>• Please maintain all individual receipts for final verification at delivery.</p>
+                <div className="text-[7.5px] font-bold text-gray-400 leading-tight italic space-y-0.5">
                   <p>• Final ornament delivery is subject to full balance clearance.</p>
                 </div>
              </div>
              <div className="text-right">
-                <span className="footer-label uppercase opacity-20">Store Protocol</span>
-                <div className="text-[8.5px] font-bold text-gray-400 leading-relaxed space-y-1 mt-2">
-                  <p>Hours: 11:00 AM — 8:30 PM (Monday through Sunday)</p>
-                  <p>Accepted: UPI, Major Credit/Debit Cards, Bank Transfer</p>
+                <span className="footer-label uppercase opacity-20">Protocol</span>
+                <div className="text-[7.5px] font-bold text-gray-400 leading-tight space-y-0.5 mt-1">
+                  <p>11:00 AM — 8:30 PM (Daily)</p>
                 </div>
              </div>
           </div>
 
-          <div className="flex justify-between items-end mt-16 px-4">
-              <div className="text-center w-56 border-t border-gray-200 pt-2">
-                 <p className="text-[8px] uppercase font-bold text-gray-400 tracking-widest leading-loose">Customer Signature</p>
+          <div className="flex justify-between items-end mt-12 px-8 italic font-black">
+              <div className="text-center w-52 border-t border-charcoal-900 pt-2 font-black">
+                 <p className="text-[8px] uppercase font-black text-charcoal-500 tracking-widest leading-none">Customer Acknowledgement</p>
               </div>
-              <div className="text-center w-56">
-                 <p className="font-bold text-[10px] uppercase text-charcoal-900 mb-1 tracking-tighter">GAUTAM JEWELLERS</p>
-                 <div className="border-t border-gray-200 pt-2 text-[9px] uppercase font-bold luxury-dark tracking-widest italic leading-none">Authorized Signature</div>
+              <div className="text-center w-56 font-black">
+                 <p className="font-black text-[9px] uppercase text-charcoal-900 mb-0.5 tracking-tighter">GAUTAM JEWELLERS</p>
+                 <div className="border-t border-charcoal-900 pt-2 text-[8.5px] uppercase font-black text-charcoal-900 tracking-widest leading-none">Authorized Signatory</div>
               </div>
           </div>
       </div>
 
-      <div className="mt-8 text-center text-[10px] text-gray-300 uppercase tracking-[0.8em] font-light italic border-t border-gray-100 pt-4">
-         Luxury Redefined • Est 2024
-      </div>
     </div>
   );
 };

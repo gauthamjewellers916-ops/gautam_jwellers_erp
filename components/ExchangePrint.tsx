@@ -60,12 +60,12 @@ export const ExchangePrint: React.FC<ExchangePrintProps> = ({
       <style>{`
         @media print {
           @page { margin: 0; size: A5 portrait; }
-          body { margin: 0; padding: 0; -webkit-print-color-adjust: exact; font-weight: 500 !important; }
+          body { margin: 0; padding: 0; -webkit-print-color-adjust: exact; font-weight: 500 !important; overflow: hidden !important; }
           .no-print { display: none !important; }
-          * { font-size: 8.5pt; color: #1a1a1a !important; }
-          h1 { font-size: 28pt !important; color: #c5a059 !important; }
-          .text-xs { font-size: 7.5pt !important; color: #1a1a1a !important; }
-          .luxury-gold { color: #c5a059 !important; }
+          * { font-size: 7.5pt; color: #1a1a1a !important; }
+          h1 { font-size: 18pt !important; color: #c5a059 !important; line-height: 1 !important; margin-bottom: 1.5mm !important; }
+          .text-xs { font-size: 6.5pt !important; color: #1a1a1a !important; }
+          .luxury-gold { color: #c09a50 !important; }
         }
 
         .luxury-serif { font-family: 'serif'; font-weight: 900; }
@@ -74,7 +74,7 @@ export const ExchangePrint: React.FC<ExchangePrintProps> = ({
         .exchange-a4-container {
           width: 148mm;
           height: 210mm;
-          padding: 4mm;
+          padding: 8mm;
           box-sizing: border-box;
           display: flex;
           flex-direction: column;
@@ -83,23 +83,14 @@ export const ExchangePrint: React.FC<ExchangePrintProps> = ({
         }
 
         .luxury-border-box {
-          border: 3px solid #1a1a1a;
-          padding: 4mm 6mm;
-          min-height: calc(210mm - 8mm - 2px);
+          border: 2px solid #1a1a1a;
+          padding: 6mm;
+          min-height: calc(210mm - 16mm);
           display: flex;
           flex-direction: column;
           position: relative;
           box-sizing: border-box;
-        }
-
-        .inner-accent-border {
-          position: absolute;
-          top: 4px;
-          left: 4px;
-          right: 4px;
-          bottom: 4px;
-          border: 1px solid #c5a059;
-          pointer-events: none;
+          border-radius: 4px;
         }
 
         .header-section {
@@ -107,27 +98,34 @@ export const ExchangePrint: React.FC<ExchangePrintProps> = ({
           margin-bottom: 2mm;
         }
 
+        .voucher-title-box {
+          border: 2px solid #1a1a1a;
+          padding: 4px 12px;
+          display: inline-block;
+          margin-top: 4px;
+          border-radius: 2px;
+          background: #f9f9f9;
+        }
+
         .voucher-title {
           font-family: 'serif';
           font-style: italic;
-          font-size: 18pt;
+          font-size: 14pt;
           text-transform: uppercase;
-          letter-spacing: 0.2em;
-          margin: 2mm 0;
-          border-bottom: 1px solid #f0f0f0;
-          display: inline-block;
-          padding-bottom: 1mm;
-          color: #c5a059;
+          letter-spacing: 0.15em;
+          color: #1a1a1a;
           font-weight: 900;
+          line-height: 1;
         }
 
         .info-grid {
           display: grid;
           grid-template-columns: 1.2fr 1fr;
-          gap: 6mm;
-          margin-bottom: 4mm;
-          border-bottom: 1px solid #f0f0f0;
-          padding-bottom: 2mm;
+          gap: 4mm;
+          margin-bottom: 3mm;
+          border: 2px solid #1a1a1a;
+          padding: 10px;
+          border-radius: 2px;
         }
 
         .info-label {
@@ -136,12 +134,12 @@ export const ExchangePrint: React.FC<ExchangePrintProps> = ({
           color: #999;
           letter-spacing: 1px;
           margin-bottom: 1px;
-          font-weight: 800;
+          font-weight: 900;
         }
 
         .info-value {
-          font-size: 13pt;
-          font-weight: 800;
+          font-size: 11pt;
+          font-weight: 900;
           color: #1a1a1a;
         }
 
@@ -154,16 +152,17 @@ export const ExchangePrint: React.FC<ExchangePrintProps> = ({
         .exchange-table th {
           border: 2px solid #1a1a1a;
           padding: 6px;
-          font-size: 8.5pt;
+          font-size: 7.5pt;
           text-transform: uppercase;
-          letter-spacing: 1px;
+          letter-spacing: 0.5px;
           background: #f9f9f9;
         }
 
         .exchange-table td {
           border: 2px solid #1a1a1a;
-          padding: 10px 10px;
-          font-size: 11.5pt;
+          padding: 8px;
+          font-size: 10pt;
+          font-weight: 900;
         }
 
         .amount-section {
@@ -174,34 +173,15 @@ export const ExchangePrint: React.FC<ExchangePrintProps> = ({
         }
 
         .grand-total-box {
-          border-bottom: 5px double #1a1a1a;
-          padding: 2px 0;
-        }
-
-        .signature-row {
-          display: flex;
-          justify-content: space-between;
-          margin-top: 10mm;
-          padding: 0 4mm;
-        }
-
-        .sig-box {
-          border-top: 1px solid #e5e7eb;
-          width: 50mm;
-          text-align: center;
-          padding-top: 1mm;
-          font-size: 8.5pt;
-          color: #999;
-          text-transform: uppercase;
-          font-weight: 800;
-          letter-spacing: 0.5px;
+          border: 2px solid #1a1a1a;
+          padding: 8px 16px;
+          border-radius: 2px;
+          background: #f9f9f9;
         }
       `}</style>
 
       <div className="exchange-a4-container">
         <div className="luxury-border-box">
-          <div className="inner-accent-border"></div>
-
           {/* TOP LOGO ACCENT */}
           <div className="flex justify-center mb-1">
             <div className="w-10 h-10">
@@ -210,38 +190,40 @@ export const ExchangePrint: React.FC<ExchangePrintProps> = ({
           </div>
 
           <div className="header-section">
-            <h1 className="luxury-serif text-[28pt] luxury-gold tracking-[0.05em] uppercase leading-none mb-1">GAUTAM JEWELLERS</h1>
+            <h1 className="luxury-serif text-[18pt] luxury-gold tracking-[0.05em] uppercase leading-none mb-0.5">GAUTAM JEWELLERS</h1>
             <div className="text-center font-bold text-charcoal-900 leading-tight">
-               <p className="text-[10pt] uppercase tracking-tight"># 27/134, Tannery Road, Near Periyarnagar Circle, Bangalore - 560 005</p>
-               <p className="text-[11pt] mt-0.5 font-bold">Ph: 080-25465873, 9740415457</p>
-               <p className="text-[10pt] mt-0.5"><span className="border-b-2 border-charcoal-900 pb-0.5">GSTIN: 29AATPU7315B1ZA</span></p>
+               <p className="text-[8.5pt] uppercase tracking-tight"># 27/134, Tannery Road, Near Periyarnagar Circle, Bangalore - 560 005</p>
+               <p className="text-[9pt] mt-0.5 font-bold">Ph: 080-25465873, 9740415457</p>
+               <p className="text-[8.5pt] mt-0.5"><span className="border-b-2 border-charcoal-900 pb-0.5">GSTIN: 29AATPU7315B1ZA</span></p>
             </div>
-            <div className="voucher-title">Exchange Voucher</div>
+            <div className="voucher-title-box">
+              <div className="voucher-title">Exchange Voucher</div>
+            </div>
           </div>
 
           {/* CUSTOMER & VOUCHER INFO */}
-          <div className="info-grid">
-            <div className="info-item">
+          <div className="info-grid mt-4">
+            <div className="info-item border-r border-charcoal-100 pr-4">
               <div className="info-label">Customer Name</div>
-              <div className="info-value font-serif font-bold uppercase tracking-tight">{customerName}</div>
-              <div className="text-xs font-mono opacity-60 mt-1">{customer?.phone || 'NO CONTACT PROVIDED'}</div>
+              <div className="info-value font-serif font-black uppercase tracking-tight text-xl">{customerName}</div>
+              <div className="text-sm font-mono font-black text-charcoal-700 mt-1">{customer?.phone || 'NO CONTACT PROVIDED'}</div>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 pl-4">
                <div className="info-item flex justify-between items-end">
                   <div className="flex flex-col">
-                    <div className="info-label">Voucher Number</div>
-                    <div className="info-value font-mono font-bold">{voucherNo}</div>
+                    <div className="info-label">Voucher No</div>
+                    <div className="info-value font-mono font-black">{voucherNo}</div>
                   </div>
                   <div className="flex flex-col text-right">
                     <div className="info-label">Date</div>
-                    <div className="info-value font-mono font-bold">{formatDate(date)}</div>
+                    <div className="info-value font-mono font-black">{formatDate(date)}</div>
                   </div>
                </div>
             </div>
           </div>
 
           {/* EXCHANGE TABLE */}
-          <table className="exchange-table">
+          <table className="exchange-table mt-2">
             <thead>
               <tr>
                 <th style={{ width: '45%' }}>Particulars of Exchange</th>
@@ -253,14 +235,14 @@ export const ExchangePrint: React.FC<ExchangePrintProps> = ({
             </thead>
             <tbody>
               <tr>
-                <td style={{ height: '40mm', verticalAlign: 'top' }}>
-                  <div className="font-bold text-xl uppercase mb-2">{exchangeData.particulars || 'OLD GOLD ORNAMENTS'}</div>
-                  <div className="text-xs italic opacity-60">Verified exchange of precious metal ornaments.</div>
+                <td style={{ height: '30mm', verticalAlign: 'top' }}>
+                  <div className="font-black text-lg uppercase mb-1">{exchangeData.particulars || 'OLD GOLD ORNAMENTS'}</div>
+                  <div className="text-[8pt] italic opacity-60 font-black">Verified exchange of precious metal ornaments.</div>
                 </td>
-                <td className="text-center font-mono">{finalHsnCode}</td>
-                <td className="text-center font-mono font-bold text-2xl">{formatWeight(exchangeData.weight)}g</td>
-                <td className="text-center font-bold text-xl">{exchangeData.purity || '-'}</td>
-                <td className="text-right font-mono font-bold text-xl">₹ {formatRate(exchangeData.rate)}</td>
+                <td className="text-center font-mono font-black text-xs">{finalHsnCode}</td>
+                <td className="text-center font-mono font-black text-xl">{formatWeight(exchangeData.weight)}g</td>
+                <td className="text-center font-black text-lg">{exchangeData.purity || '-'}</td>
+                <td className="text-right font-mono font-black text-lg px-2">₹ {formatRate(exchangeData.rate)}</td>
               </tr>
             </tbody>
           </table>
@@ -268,41 +250,32 @@ export const ExchangePrint: React.FC<ExchangePrintProps> = ({
           {/* FINAL SETTLEMENT */}
           <div className="amount-section">
              <div className="text-right">
-                <div className="text-[10px] uppercase font-bold text-gray-400 tracking-widest mb-1 leading-none">Total Exchange Value</div>
+                <div className="text-[8px] uppercase font-black text-charcoal-400 tracking-widest mb-1 leading-none">Total Value Information</div>
                 <div className="grand-total-box">
-                   <div className="flex items-baseline justify-end gap-2">
-                      <span className="luxury-serif luxury-gold text-2xl uppercase">INR</span>
-                      <span className="luxury-serif text-5xl text-charcoal-900 leading-none">{formatAmount(exchangeData.total)}</span>
+                   <div className="flex items-baseline justify-end gap-3 text-charcoal-900">
+                      <span className="text-sm font-black uppercase opacity-60">Total Value:</span>
+                      <span className="font-black text-4xl mb-[-4px]">{formatAmount(exchangeData.total)}</span>
                    </div>
-                </div>
-                <div className="text-[10px] italic font-bold uppercase mt-2 opacity-40 tracking-widest leading-none">
-                   Valuation based on daily certified metal rates.
                 </div>
              </div>
           </div>
 
           {/* TERMS */}
-          <div className="mt-8 border-t border-gray-100 pt-6">
-             <div className="text-[9px] text-gray-400 leading-relaxed text-justify px-4 font-bold italic">
-                <p><b>Declaration:</b> We hereby certify that the above mentioned precious metal/ornaments have been exchanged/purchased as Old Gold from the customer after due verification. The valuation is strictly as per the prevailing market rates and purity standards. This voucher is valid for settlement against new purchases within one week from the date of issue.</p>
+          <div className="mt-6 border-t border-charcoal-900 pt-4">
+             <div className="text-[9px] text-charcoal-600 leading-tight text-center px-4 font-black italic">
+                <p><b>Declaration:</b> We hereby certify that the above mentioned precious metal/ornaments have been exchanged/purchased as Old Gold from the customer after due verification. The valuation is strictly as per the prevailing market rates and purity standards.</p>
              </div>
           </div>
 
           {/* SIGNATURES */}
-          <div className="flex justify-between items-end mt-20 px-4">
-              <div className="text-center w-56 border-t border-gray-200 pt-2">
-                 <p className="text-[8px] uppercase font-bold text-gray-400 tracking-widest leading-loose">Customer Signature</p>
+          <div className="flex justify-between items-end mt-12 px-8 italic font-black">
+              <div className="text-center w-52 border-t border-charcoal-900 pt-2 font-black">
+                 <p className="text-[8px] uppercase font-black text-charcoal-500 tracking-widest">Customer Signature</p>
               </div>
-              <div className="text-center w-56">
-                 <p className="font-bold text-[10px] uppercase text-charcoal-900 mb-1 tracking-tighter">GAUTAM JEWELLERS</p>
-                 <div className="border-t border-gray-200 pt-2 text-[9px] uppercase font-bold text-charcoal-900 tracking-widest italic leading-none">Authorized Signature</div>
+              <div className="text-center w-56 font-black">
+                 <p className="font-black text-[9px] uppercase text-charcoal-900 mb-0.5 tracking-tighter">GAUTAM JEWELLERS</p>
+                 <div className="border-t border-charcoal-900 pt-2 text-[8.5px] uppercase font-black text-charcoal-900 tracking-widest leading-none">Authorized Signatory</div>
               </div>
-          </div>
-
-          <div className="mt-auto text-center pt-8">
-             <div className="text-[10px] text-gray-300 uppercase tracking-[1em] font-light italic">
-                Luxury Redefined • Est 2024
-             </div>
           </div>
         </div>
       </div>
