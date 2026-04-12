@@ -601,7 +601,7 @@ export const SalesBill: React.FC<SalesBillProps> = ({ billId, onClearEdit }) => 
       making_charges: making,
       gst_rate: 0, line_total: lineTotal,
       metal_type: newItem.metal_type,
-      hsn_code: newItem.hsn_code,
+      hsn_code: newItem.hsn_code || '711319',
       purity: newItem.purity || 'Standard'
     }]);
     
@@ -908,6 +908,7 @@ export const SalesBill: React.FC<SalesBillProps> = ({ billId, onClearEdit }) => 
             <div className="col-span-2"><Input label="Barcode" icon={isLoadingItem ? <div className="animate-spin w-3 h-3 border border-gray-400 rounded-full"/> : <ScanLine size={16} />} isMonospaced value={newItem.barcode} onChange={(e) => setNewItem({...newItem, barcode: e.target.value})} /></div>
             <div className="col-span-2"><Input label="Item Name" value={newItem.item_name} onChange={(e) => setNewItem({...newItem, item_name: e.target.value})} /></div>
             <div className="col-span-1"><Input label="HUID" isMonospaced value={newItem.huid} onChange={(e) => setNewItem({...newItem, huid: e.target.value})} /></div>
+            <div className="col-span-1"><Input label="HSN" isMonospaced value={newItem.hsn_code} onChange={(e) => setNewItem({...newItem, hsn_code: e.target.value})} /></div>
             <div className="col-span-1"><Input label="Gross Wt" type="number" isMonospaced value={newItem.grossWeightInput} onChange={(e) => setNewItem({...newItem, grossWeightInput: e.target.value})} /></div>
             <div className="col-span-1"><Input label="Net Wt" type="number" isMonospaced value={newItem.netWeightInput} onChange={(e) => setNewItem({...newItem, netWeightInput: e.target.value})} /></div>
             <div className="col-span-1">
@@ -929,6 +930,7 @@ export const SalesBill: React.FC<SalesBillProps> = ({ billId, onClearEdit }) => 
                 <tr>
                   <th className="py-3 px-4">Item</th>
                   <th className="py-3 px-4">HUID</th>
+                  <th className="py-3 px-4">HSN</th>
                   <th className="py-3 px-4 text-right">Gross Wt</th>
                   <th className="py-3 px-4 text-right">Net Wt</th>
                   <th className="py-3 px-4 text-right">Rate</th>
@@ -942,6 +944,7 @@ export const SalesBill: React.FC<SalesBillProps> = ({ billId, onClearEdit }) => 
                   <tr key={item.id} className="hover:bg-gray-50 transition-colors text-charcoal-900 font-medium">
                     <td className="py-3 px-4">{item.item_name}</td>
                     <td className="py-3 px-4 font-mono text-xs">{item.huid || '-'}</td>
+                    <td className="py-3 px-4 text-center font-mono text-[10px] text-gray-400">{item.hsn_code || '7113'}</td>
                     <td className="py-3 px-4 text-right font-mono text-gray-400">{item.gross_weight?.toFixed(3) || '0.000'}</td>
                     <td className="py-3 px-4 text-right font-mono font-bold">{item.net_weight?.toFixed(3) || '0.000'}</td>
                     <td className="py-3 px-4 text-right font-mono">{item.rate.toLocaleString()}</td>

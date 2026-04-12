@@ -87,16 +87,16 @@ export const InvoicePrint: React.FC<InvoicePrintProps> = ({
   const activeMetals = Array.from(new Set(items.map(i => i.metal_type).filter(m => m && m !== 'service'))) as string[];
 
   return (
-    <div className={`${isScreenPreview ? 'block w-[210mm] mx-auto shadow-2xl p-8 my-8' : 'hidden print:block w-[210mm] h-[297mm] mx-auto p-6'} bg-white text-charcoal-900 font-sans flex flex-col`}>
+    <div className={`${isScreenPreview ? 'block w-[148mm] mx-auto shadow-2xl p-6 my-8' : 'hidden print:block w-[148mm] h-[210mm] mx-auto p-4'} bg-white text-charcoal-900 font-sans flex flex-col`}>
       <style>{`
         @media print {
-          @page { margin: 0; size: A4 portrait; }
+          @page { margin: 0; size: A5 portrait; }
           body { margin: 0; padding: 0; -webkit-print-color-adjust: exact; font-weight: 500 !important; }
           .no-print { display: none !important; }
-          * { font-size: 9.5pt; color: #1a1a1a !important; }
-          h1 { font-size: 32pt !important; color: #c5a059 !important; }
-          .text-xs { font-size: 7.5pt !important; color: #1a1a1a !important; }
-          .text-[10px] { font-size: 7pt !important; color: #1a1a1a !important; }
+          * { font-size: 8pt; color: #1a1a1a !important; }
+          h1 { font-size: 24pt !important; color: #c5a059 !important; }
+          .text-xs { font-size: 7pt !important; color: #1a1a1a !important; }
+          .text-[10px] { font-size: 6.5pt !important; color: #1a1a1a !important; }
           .luxury-gold { color: #c5a059 !important; }
         }
 
@@ -116,7 +116,7 @@ export const InvoicePrint: React.FC<InvoicePrintProps> = ({
 
       {/* BRANDING SECTION */}
       <div className="text-center mb-4">
-        <h1 className="luxury-serif text-[38pt] luxury-gold tracking-[0.05em] uppercase leading-none mb-1">GAUTHAM JEWELLERS</h1>
+        <h1 className="luxury-serif text-[28pt] luxury-gold tracking-[0.05em] uppercase leading-none mb-2">GAUTAM JEWELLERS</h1>
         
         <div className="space-y-0.5 text-charcoal-900 font-bold">
           <p className="text-[10pt] uppercase tracking-tight">
@@ -178,8 +178,9 @@ export const InvoicePrint: React.FC<InvoicePrintProps> = ({
         <table className="w-full text-left invoice-table">
           <thead>
             <tr className="text-gray-400 font-bold">
-              <th className="w-10 text-center">#</th>
+              <th className="w-8 text-center">#</th>
               <th>Description</th>
+              <th className="text-center">HSN</th>
               <th className="text-center">HUID</th>
               <th className="text-right">Gross</th>
               <th className="text-right">Net</th>
@@ -191,29 +192,30 @@ export const InvoicePrint: React.FC<InvoicePrintProps> = ({
           <tbody className="font-bold">
             {items.map((item, idx) => (
               <tr key={item.id}>
-                <td className="text-center text-gray-300 font-mono text-xs">{idx + 1}</td>
-                <td className="uppercase text-sm tracking-tight">{item.item_name}</td>
-                <td className="text-center font-mono text-[9px] text-gray-400">{item.huid || '-'}</td>
-                <td className="text-right font-mono text-xs">{item.gross_weight?.toFixed(3) || item.weight.toFixed(3)}g</td>
-                <td className="text-right font-mono text-sm text-charcoal-900 border-b border-gold-100">{item.net_weight?.toFixed(3) || item.weight.toFixed(3)}g</td>
-                <td className="text-right font-mono text-xs text-gray-400">{item.rate.toLocaleString()}</td>
-                <td className="text-right font-mono text-xs text-gray-400">{item.making_charges.toLocaleString()}</td>
-                <td className="text-right font-mono text-sm">{item.line_total.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                <td className="text-center text-gray-300 font-mono text-[10px]">{idx + 1}</td>
+                <td className="uppercase text-[11px] tracking-tight">{item.item_name}</td>
+                <td className="text-center font-mono text-[9px] text-gray-400">{item.hsn_code || '7113'}</td>
+                <td className="text-center font-mono text-[8px] text-gray-400">{item.huid || '-'}</td>
+                <td className="text-right font-mono text-[10px]">{item.gross_weight?.toFixed(3) || item.weight.toFixed(3)}g</td>
+                <td className="text-right font-mono text-xs text-charcoal-900 border-b border-gold-100">{item.net_weight?.toFixed(3) || item.weight.toFixed(3)}g</td>
+                <td className="text-right font-mono text-[10px] text-gray-400">{item.rate.toLocaleString()}</td>
+                <td className="text-right font-mono text-[10px] text-gray-400">{item.making_charges.toLocaleString()}</td>
+                <td className="text-right font-mono text-xs">{item.line_total.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
               </tr>
             ))}
             
             {mcValueAdded.total > 0 && (
               <tr>
-                 <td className="text-center text-xs text-gray-300">•</td>
-                 <td colSpan={6} className="uppercase text-xs tracking-widest opacity-60 italic">Value Added / Working Charges</td>
-                 <td className="text-right font-mono text-sm">{mcValueAdded.total.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                  <td className="text-center text-xs text-gray-300">•</td>
+                  <td colSpan={7} className="uppercase text-[10px] tracking-widest opacity-60 italic">Value Added / Working Charges</td>
+                  <td className="text-right font-mono text-xs">{mcValueAdded.total.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
               </tr>
             )}
             
             {/* Minimal Spacer rows */}
             {[...Array(Math.max(0, 5 - items.length))].map((_, i) => (
               <tr key={`spacer-${i}`} className="h-8 opacity-0">
-                <td colSpan={8}>&nbsp;</td>
+                <td colSpan={9}>&nbsp;</td>
               </tr>
             ))}
           </tbody>
@@ -328,7 +330,6 @@ export const InvoicePrint: React.FC<InvoicePrintProps> = ({
                   <p>Hours: 10:00 to 2:30 and 4:00pm to 9:00pm (Monday through Saturday)</p>
                   <p>Sunday: 10:00 to 7:00pm</p>
                   <p>Accepted: UPI, Major Credit/Debit Cards, Bank Transfer</p>
-                  <p>Location: Shivaji Nagar, Bengaluru</p>
                 </div>
              </div>
           </div>
@@ -338,7 +339,7 @@ export const InvoicePrint: React.FC<InvoicePrintProps> = ({
                  <p className="text-[8px] uppercase font-bold text-gray-400 tracking-widest leading-loose">Client Acknowledgement</p>
               </div>
               <div className="text-center w-56">
-                 <p className="font-bold text-[10px] uppercase text-charcoal-900 mb-1 tracking-tighter">GAUTHAM JEWELLERS</p>
+                 <p className="font-bold text-[10px] uppercase text-charcoal-900 mb-1 tracking-tighter">GAUTAM JEWELLERS</p>
                  <div className="border-t border-gray-200 pt-2 text-[9px] uppercase font-bold text-charcoal-900 tracking-widest italic leading-none">Authorized Signature</div>
               </div>
           </div>

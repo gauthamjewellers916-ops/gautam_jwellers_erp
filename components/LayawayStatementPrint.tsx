@@ -42,16 +42,16 @@ export const LayawayStatementPrint: React.FC<LayawayStatementPrintProps> = ({
   isScreenPreview = false
 }) => {
   return (
-    <div className={`${isScreenPreview ? 'block w-[210mm] mx-auto shadow-2xl p-8 my-8' : 'hidden print:block w-[210mm] h-[297mm] mx-auto p-10'} bg-white text-charcoal-900 font-sans flex flex-col`}>
+    <div className={`${isScreenPreview ? 'block w-[148mm] mx-auto shadow-2xl p-6 my-8' : 'hidden print:block w-[148mm] h-[210mm] mx-auto p-10'} bg-white text-charcoal-900 font-sans flex flex-col`}>
       <style>{`
         @media print {
-          @page { margin: 0; size: A4 portrait; }
+          @page { margin: 0; size: A5 portrait; }
           body { margin: 0; padding: 0; -webkit-print-color-adjust: exact; font-weight: 500 !important; }
           .no-print { display: none !important; }
-          * { font-size: 10pt; color: #1a1a1a !important; }
-          h1 { font-size: 36pt !important; color: #c5a059 !important; }
-          .text-xs { font-size: 8pt !important; color: #1a1a1a !important; }
-          .text-[10px] { font-size: 7.5pt !important; color: #1a1a1a !important; }
+          * { font-size: 8pt; color: #1a1a1a !important; }
+          h1 { font-size: 24pt !important; color: #c5a059 !important; }
+          .text-xs { font-size: 7.5pt !important; color: #1a1a1a !important; }
+          .text-[10px] { font-size: 6.5pt !important; color: #1a1a1a !important; }
           .luxury-gold { color: #c5a059 !important; }
         }
 
@@ -81,7 +81,7 @@ export const LayawayStatementPrint: React.FC<LayawayStatementPrintProps> = ({
 
       {/* BRANDING SECTION */}
       <div className="text-center mb-6">
-        <h1 className="luxury-serif text-[42pt] luxury-gold tracking-[0.05em] uppercase leading-none mb-2">GAUTHAM JEWELLERS</h1>
+        <h1 className="luxury-serif text-[24pt] luxury-gold tracking-[0.05em] uppercase leading-none mb-2">GAUTAM JEWELLERS</h1>
         
         <div className="space-y-1 text-charcoal-900 font-bold">
           <p className="text-[11pt] uppercase tracking-tight">
@@ -200,7 +200,6 @@ export const LayawayStatementPrint: React.FC<LayawayStatementPrintProps> = ({
                 <div className="text-[8.5px] font-bold text-gray-400 leading-relaxed space-y-1 mt-2">
                   <p>Hours: 11:00 AM — 8:30 PM (Monday through Sunday)</p>
                   <p>Accepted: UPI, Major Credit/Debit Cards, Bank Transfer</p>
-                  <p>Location: Shivaji Nagar, Bengaluru</p>
                 </div>
              </div>
           </div>
@@ -210,7 +209,7 @@ export const LayawayStatementPrint: React.FC<LayawayStatementPrintProps> = ({
                  <p className="text-[8px] uppercase font-bold text-gray-400 tracking-widest leading-loose">Customer Signature</p>
               </div>
               <div className="text-center w-56">
-                 <p className="font-bold text-[10px] uppercase text-charcoal-900 mb-1 tracking-tighter">GAUTHAM JEWELLERS</p>
+                 <p className="font-bold text-[10px] uppercase text-charcoal-900 mb-1 tracking-tighter">GAUTAM JEWELLERS</p>
                  <div className="border-t border-gray-200 pt-2 text-[9px] uppercase font-bold luxury-dark tracking-widest italic leading-none">Authorized Signature</div>
               </div>
           </div>

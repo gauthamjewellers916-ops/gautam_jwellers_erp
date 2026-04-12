@@ -56,15 +56,15 @@ export const ExchangePrint: React.FC<ExchangePrintProps> = ({
   const finalHsnCode = exchangeData.hsn_code || '7113';
 
   return (
-    <div className={`${isScreenPreview ? 'block w-[210mm] mx-auto shadow-2xl p-8 my-8' : 'hidden print:block w-[210mm] h-[297mm] mx-auto p-0'} bg-white font-sans font-bold`}>
+    <div className={`${isScreenPreview ? 'block w-[148mm] mx-auto shadow-2xl p-6 my-8' : 'hidden print:block w-[148mm] h-[210mm] mx-auto p-0'} bg-white font-sans font-bold`}>
       <style>{`
         @media print {
-          @page { margin: 0; size: A4 portrait; }
+          @page { margin: 0; size: A5 portrait; }
           body { margin: 0; padding: 0; -webkit-print-color-adjust: exact; font-weight: 500 !important; }
           .no-print { display: none !important; }
-          * { font-size: 11pt; color: #1a1a1a !important; }
-          h1 { font-size: 36pt !important; color: #c5a059 !important; }
-          .text-xs { font-size: 8pt !important; color: #1a1a1a !important; }
+          * { font-size: 8.5pt; color: #1a1a1a !important; }
+          h1 { font-size: 28pt !important; color: #c5a059 !important; }
+          .text-xs { font-size: 7.5pt !important; color: #1a1a1a !important; }
           .luxury-gold { color: #c5a059 !important; }
         }
 
@@ -72,9 +72,9 @@ export const ExchangePrint: React.FC<ExchangePrintProps> = ({
         .luxury-gold { color: #c5a059; }
         
         .exchange-a4-container {
-          width: 210mm;
-          height: 297mm;
-          padding: 6mm;
+          width: 148mm;
+          height: 210mm;
+          padding: 4mm;
           box-sizing: border-box;
           display: flex;
           flex-direction: column;
@@ -83,9 +83,9 @@ export const ExchangePrint: React.FC<ExchangePrintProps> = ({
         }
 
         .luxury-border-box {
-          border: 4px solid #1a1a1a;
-          padding: 6mm 10mm;
-          min-height: calc(297mm - 12mm - 2px);
+          border: 3px solid #1a1a1a;
+          padding: 4mm 6mm;
+          min-height: calc(210mm - 8mm - 2px);
           display: flex;
           flex-direction: column;
           position: relative;
@@ -210,7 +210,7 @@ export const ExchangePrint: React.FC<ExchangePrintProps> = ({
           </div>
 
           <div className="header-section">
-            <h1 className="luxury-serif text-[40pt] luxury-gold tracking-[0.05em] uppercase leading-none mb-1">GAUTHAM JEWELLERS</h1>
+            <h1 className="luxury-serif text-[28pt] luxury-gold tracking-[0.05em] uppercase leading-none mb-1">GAUTAM JEWELLERS</h1>
             <div className="text-center font-bold text-charcoal-900 leading-tight">
                <p className="text-[10pt] uppercase tracking-tight"># 27/134, Tannery Road, Near Periyarnagar Circle, Bangalore - 560 005</p>
                <p className="text-[11pt] mt-0.5 font-bold">Ph: 080-25465873, 9740415457</p>
@@ -294,7 +294,7 @@ export const ExchangePrint: React.FC<ExchangePrintProps> = ({
                  <p className="text-[8px] uppercase font-bold text-gray-400 tracking-widest leading-loose">Customer Signature</p>
               </div>
               <div className="text-center w-56">
-                 <p className="font-bold text-[10px] uppercase text-charcoal-900 mb-1 tracking-tighter">GAUTHAM JEWELLERS</p>
+                 <p className="font-bold text-[10px] uppercase text-charcoal-900 mb-1 tracking-tighter">GAUTAM JEWELLERS</p>
                  <div className="border-t border-gray-200 pt-2 text-[9px] uppercase font-bold text-charcoal-900 tracking-widest italic leading-none">Authorized Signature</div>
               </div>
           </div>

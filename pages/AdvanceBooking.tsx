@@ -75,7 +75,16 @@ export const AdvanceBooking: React.FC = () => {
   const [newCustomerDetails, setNewCustomerDetails] = useState({ name: '', phone: '', address: '' });
   const [deliveryDate, setDeliveryDate] = useState('');
   const [items, setItems] = useState<any[]>([]);
-  const [newItem, setNewItem] = useState<any>({ name: '', weight: 0, purity: '22K', rate: 0, makingCharges: 0, metalType: 'gold' });
+  const [newItem, setNewItem] = useState<any>({ 
+    name: '', 
+    weight: 0, 
+    purity: '22K', 
+    rate: 0, 
+    makingCharges: 0, 
+    makingChargesAmount: '',
+    makingChargesPercentage: '',
+    metalType: 'gold' 
+  });
   const [metalRates, setMetalRates] = useState<any>(null);
 
   // Sync initial rate when rates are loaded or item is reset
@@ -191,7 +200,12 @@ export const AdvanceBooking: React.FC = () => {
       else if (purity === '18K' || purity === '750') rate = metalRates.gold18k;
       else if (purity === '24K' || purity === 'gold') rate = metalRates.goldStd;
     }
-    const making = Number(newItem.makingCharges || 0);
+    let making = Number(newItem.makingCharges || 0);
+    if (newItem.makingChargesAmount) {
+      making = parseFloat(newItem.makingChargesAmount) || 0;
+    } else if (newItem.makingChargesPercentage) {
+      making = (weight * rate) * (parseFloat(newItem.makingChargesPercentage) / 100);
+    }
     const lineTotal = (weight * rate) + making;
     const item = {
       id: Date.now().toString(),
@@ -204,7 +218,7 @@ export const AdvanceBooking: React.FC = () => {
       lineTotal
     };
     setItems([...items, item]);
-    setNewItem({ weight: 0, rate: 0, makingCharges: 0, purity: '22K', name: '', metalType: 'gold' });
+    setNewItem({ weight: 0, rate: 0, makingCharges: 0, makingChargesAmount: '', makingChargesPercentage: '', purity: '22K', name: '', metalType: 'gold' });
   };
   const handleEditBooking = (booking: any) => {
     setEditingBookingId(booking.id);
@@ -710,7 +724,25 @@ export const AdvanceBooking: React.FC = () => {
                           }} /></div>
                           <div className="col-span-2"><Input label="Wt (g)" type="number" isMonospaced value={newItem.weight || ''} onChange={e => setNewItem({...newItem, weight: parseFloat(e.target.value)})} /></div>
                           <div className="col-span-2"><Input label="Rate" type="number" isMonospaced value={newItem.rate || ''} onChange={e => setNewItem({...newItem, rate: parseFloat(e.target.value)})} /></div>
-                          <div className="col-span-2"><Input label="Making ₹" type="number" isMonospaced value={newItem.makingCharges || ''} onChange={e => setNewItem({...newItem, makingCharges: parseFloat(e.target.value) || 0})} /></div>
+                          <div className="col-span-2">
+                             <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Making Chgs</label>
+                             <div className="flex gap-1">
+                                <input 
+                                  type="number" 
+                                  placeholder="Amt ₹" 
+                                  className="w-1/2 bg-white border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-gold-500 outline-none" 
+                                  value={newItem.makingChargesAmount} 
+                                  onChange={e => setNewItem({...newItem, makingChargesAmount: e.target.value, makingChargesPercentage: ''})} 
+                                />
+                                <input 
+                                  type="number" 
+                                  placeholder="%" 
+                                  className="w-1/2 bg-white border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-gold-500 outline-none" 
+                                  value={newItem.makingChargesPercentage} 
+                                  onChange={e => setNewItem({...newItem, makingChargesPercentage: e.target.value, makingChargesAmount: ''})} 
+                                />
+                             </div>
+                          </div>
                           <div className="col-span-1"><Button onClick={handleAddItem} className="w-full !px-0 bg-gold-500 hover:bg-gold-600"><Plus size={20}/></Button></div>
                        </div>
                        <div className="border border-gray-200 rounded overflow-hidden flex-1 overflow-auto min-h-[200px]">

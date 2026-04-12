@@ -52,17 +52,17 @@ export const AdvanceBookingPrint: React.FC<AdvanceBookingPrintProps> = ({
   isScreenPreview = false
 }) => {
   return (
-    <div className={`${isScreenPreview ? 'block w-[210mm] mx-auto shadow-2xl p-8 my-8' : 'hidden print:block w-[210mm] h-[297mm] mx-auto p-12'} bg-white text-charcoal-900 font-sans font-bold flex flex-col`}>
+    <div className={`${isScreenPreview ? 'block w-[148mm] mx-auto shadow-2xl p-6 my-8' : 'hidden print:block w-[148mm] h-[210mm] mx-auto p-8'} bg-white text-charcoal-900 font-sans font-bold flex flex-col`}>
       <style>{`
         @media print {
-          @page { margin: 0; size: A4 portrait; }
+          @page { margin: 0; size: A5 portrait; }
           body { margin: 0; padding: 0; -webkit-print-color-adjust: exact; font-weight: 500 !important; }
           .no-print { display: none !important; }
-          * { font-size: 10pt; color: #1a1a1a !important; }
-          h1 { font-size: 36pt !important; color: #c5a059 !important; }
-          .text-xs { font-size: 8pt !important; color: #1a1a1a !important; }
-          .text-lg { font-size: 12pt !important; color: #1a1a1a !important; }
-          .text-[10px] { font-size: 7.5pt !important; color: #1a1a1a !important; }
+          * { font-size: 8.5pt; color: #1a1a1a !important; }
+          h1 { font-size: 28pt !important; color: #c5a059 !important; }
+          .text-xs { font-size: 7.5pt !important; color: #1a1a1a !important; }
+          .text-lg { font-size: 10pt !important; color: #1a1a1a !important; }
+          .text-[10px] { font-size: 6.5pt !important; color: #1a1a1a !important; }
         }
       `}</style>
 
@@ -75,7 +75,7 @@ export const AdvanceBookingPrint: React.FC<AdvanceBookingPrintProps> = ({
 
       {/* BRANDING SECTION */}
       <div className="text-center mb-6">
-        <h1 className="font-serif text-[42pt] font-bold text-[#c5a059] tracking-[0.05em] uppercase leading-none mb-2">GAUTHAM JEWELLERS</h1>
+        <h1 className="luxury-serif text-[28pt] luxury-gold tracking-[0.05em] uppercase leading-none mb-2">GAUTAM JEWELLERS</h1>
         
         <div className="space-y-1 text-charcoal-900 font-bold">
           <p className="text-[11pt] uppercase tracking-tight">
@@ -129,26 +129,28 @@ export const AdvanceBookingPrint: React.FC<AdvanceBookingPrintProps> = ({
           <table className="w-full text-left text-sm border-collapse border-2 border-charcoal-900 shadow-sm font-bold">
             <thead>
               <tr className="bg-charcoal-50">
-                <th className="py-4 px-4 font-bold uppercase tracking-wider text-charcoal-900 w-12 border border-charcoal-900 text-center">Sn</th>
-                <th className="py-4 px-4 font-bold uppercase tracking-wider text-charcoal-900 border border-charcoal-900">Description of Ornament</th>
-                <th className="py-4 px-4 font-bold uppercase tracking-wider text-charcoal-900 text-right border border-charcoal-900">Estimated Wt</th>
-                <th className="py-4 px-4 font-bold uppercase tracking-wider text-charcoal-900 text-right border border-charcoal-900">Locked Rate</th>
-                <th className="py-4 px-4 font-bold uppercase tracking-wider text-charcoal-900 text-right border border-charcoal-900">Making Chg</th>
-                <th className="py-4 px-4 font-bold uppercase tracking-wider text-charcoal-900 text-right border border-charcoal-900">Est. Total</th>
+                <th className="py-2 px-3 font-bold uppercase tracking-wider text-charcoal-900 w-8 border border-charcoal-900 text-center">Sn</th>
+                <th className="py-2 px-3 font-bold uppercase tracking-wider text-charcoal-900 border border-charcoal-900">Description</th>
+                <th className="py-2 px-3 font-bold uppercase tracking-wider text-charcoal-900 text-center border border-charcoal-900">HSN</th>
+                <th className="py-2 px-3 font-bold uppercase tracking-wider text-charcoal-900 text-right border border-charcoal-900">Est. Wt</th>
+                <th className="py-2 px-3 font-bold uppercase tracking-wider text-charcoal-900 text-right border border-charcoal-900">Locked Rate</th>
+                <th className="py-2 px-3 font-bold uppercase tracking-wider text-charcoal-900 text-right border border-charcoal-900">Making</th>
+                <th className="py-2 px-3 font-bold uppercase tracking-wider text-charcoal-900 text-right border border-charcoal-900">Est. Total</th>
               </tr>
             </thead>
             <tbody className="font-mono">
               {items.map((item, idx) => (
                 <tr key={item.id} className="border-b border-charcoal-100">
-                  <td className="py-4 px-4 text-charcoal-500 border border-charcoal-900 text-center">{String(idx + 1).padStart(2, '0')}</td>
-                  <td className="py-4 px-4 font-sans font-bold border border-charcoal-900">
-                    <span className="font-bold text-charcoal-900 block tracking-tight uppercase text-lg mb-0.5">{item.name}</span>
-                    <span className="text-[10px] text-charcoal-500 uppercase tracking-widest italic">{item.metalType} • {item.purity}</span>
+                  <td className="py-2 px-3 text-charcoal-500 border border-charcoal-900 text-center">{String(idx + 1).padStart(2, '0')}</td>
+                  <td className="py-2 px-3 font-sans font-bold border border-charcoal-900">
+                    <span className="font-bold text-charcoal-900 block tracking-tight uppercase text-sm mb-0.5">{item.name}</span>
+                    <span className="text-[8px] text-charcoal-500 uppercase tracking-widest italic">{item.metalType} • {item.purity}</span>
                   </td>
-                  <td className="py-4 px-4 text-right text-charcoal-900 border border-charcoal-900 text-lg">{item.weight.toFixed(3)}g</td>
-                  <td className="py-4 px-4 text-right text-charcoal-900 border border-charcoal-900 text-lg">{item.rate.toLocaleString()}</td>
-                  <td className="py-4 px-4 text-right text-charcoal-900 border border-charcoal-900 text-lg">{(item.makingCharges || 0).toLocaleString()}</td>
-                  <td className="py-4 px-4 text-right text-charcoal-900 font-bold border border-charcoal-900 text-xl">{formatCurrency(item.lineTotal)}</td>
+                  <td className="py-2 px-3 text-center text-charcoal-500 border border-charcoal-900 text-[10px] font-mono">7113</td>
+                  <td className="py-2 px-3 text-right text-charcoal-900 border border-charcoal-900 text-sm">{item.weight.toFixed(3)}g</td>
+                  <td className="py-2 px-3 text-right text-charcoal-900 border border-charcoal-900 text-sm">{item.rate.toLocaleString()}</td>
+                  <td className="py-2 px-3 text-right text-charcoal-900 border border-charcoal-900 text-sm">{(item.makingCharges || 0).toLocaleString()}</td>
+                  <td className="py-2 px-3 text-right text-charcoal-900 font-bold border border-charcoal-900 text-base">{formatCurrency(item.lineTotal)}</td>
                 </tr>
               ))}
             </tbody>
@@ -209,7 +211,7 @@ export const AdvanceBookingPrint: React.FC<AdvanceBookingPrintProps> = ({
                  <p className="text-xs uppercase font-bold text-charcoal-900 tracking-widest">Customer Signature</p>
               </div>
               <div className="text-center w-64 border-t-2 border-charcoal-900 pt-2">
-                 <p className="text-xs uppercase font-bold text-charcoal-500 mb-1">For GAUTHAM JEWELLERS</p>
+                  <p className="font-bold text-[10px] uppercase text-charcoal-900 mb-1 tracking-tighter">GAUTAM JEWELLERS</p>
                  <p className="text-sm uppercase font-bold text-charcoal-900 tracking-wider">Authorized Signatory</p>
               </div>
           </div>
